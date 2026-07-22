@@ -75,3 +75,6 @@ doc/api/
 .flutter-plugins
 .flutter-plugins-dependencies
 >>>>>>> efec4945d5301872f00ff2729f1dfe6524a5db72
+
+# FVM Version Cache
+.fvm/
