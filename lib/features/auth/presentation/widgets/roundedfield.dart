@@ -20,21 +20,34 @@ class Roundedfield extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
-      controller: controller,
-      obscureText: obscureText,
-      decoration: InputDecoration(
-        hintText: hint,
-        prefixIcon: Icon(icon, color: Colors.grey),
-        suffixIcon: suffixIcon,
-        filled: true,
-        fillColor: const Color(0xFFF2F3F7),
-        contentPadding: const EdgeInsets.symmetric(vertical: 16),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(28),
-          borderSide: BorderSide.none,
+    return SizedBox(
+      height: 48,
+      child: TextField(
+        controller: controller,
+        obscureText: obscureText,
+        style: const TextStyle(
+          fontSize: 14,
         ),
-      )
+        decoration: InputDecoration(
+          hintStyle: const TextStyle(
+            fontSize: 14,
+          ),
+          isDense: true,
+          hintText: hint,
+          prefixIcon: Icon(icon, color: Colors.grey),
+          suffixIcon: suffixIcon,
+          filled: true,
+          fillColor: const Color(0xFFF2F3F7),
+          contentPadding: const EdgeInsets.symmetric(
+          vertical: 8,
+          horizontal: 12,
+        ),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(28),
+            borderSide: BorderSide.none,
+          ),
+        )
+      ),
     );
   }
 }

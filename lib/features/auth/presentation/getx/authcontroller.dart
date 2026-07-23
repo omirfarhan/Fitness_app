@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 
 class  Authcontroller extends GetxController {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
-  bool obscurePassword = true;
+  var obscurePassword = true.obs;
 
 }
