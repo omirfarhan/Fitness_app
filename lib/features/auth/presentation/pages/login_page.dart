@@ -1,4 +1,5 @@
 import 'package:cleancodearchitecture/features/auth/presentation/getx/authcontroller.dart';
+import 'package:cleancodearchitecture/features/auth/presentation/pages/registration_page.dart';
 import 'package:cleancodearchitecture/features/auth/presentation/widgets/roundedfield.dart';
 import 'package:cleancodearchitecture/features/auth/presentation/widgets/socialbutton.dart';
 import 'package:flutter/material.dart';
@@ -12,11 +13,8 @@ class LoginPage extends GetView<Authcontroller> {
 
   @override
   Widget build(BuildContext context) {
-
-
     return Scaffold(
         backgroundColor: const Color(0xFFB9E1F5),
-
       body: SafeArea(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -148,6 +146,7 @@ class LoginPage extends GetView<Authcontroller> {
 
                               GestureDetector(
                                 onTap: () {
+                                  Get.to(() => const RegistrationPage());
                                   print('Sign up button');
                                 },
 
