@@ -5,10 +5,14 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 
 import '../widgets/roundedfield.dart';
+import '../widgets/sign_in_button.dart';
+import 'login_page.dart';
+
 
 class RegistrationPage extends GetView<Authcontroller>{
-  const RegistrationPage({super.key});
+   RegistrationPage({super.key});
 
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -46,55 +50,68 @@ class RegistrationPage extends GetView<Authcontroller>{
                     ),
                   ),
 
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      SingleChildScrollView(
-                          child: Column(
+                  child: SingleChildScrollView(
+                    child: Form(
+                      key: _formKey,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const SizedBox(height: 25),
+                          Column(
                             children: [
                               Roundedfield(
-                                  controller: controller.emailController,
+                                  controller: controller.fullnameController,
                                   hint: 'Full name',
                                   icon: Icons.drive_file_rename_outline_outlined,
-                                  obscureText: false
+                                  obscureText: false,
+                                validator: (value) {
+                                    if(value == null || value.isEmpty){
+                                      return 'Full name required';
+                                    }
+                                    if(value.length < 4){
+                                      return 'Full name must be at least 4 characters';
+                                    }
+                                    return null;
+                                },
                               ),
+
+
                               const SizedBox(height: 13),
 
                               Roundedfield(
-                                  controller: controller.emailController,
+                                  controller: controller.gmailController,
                                   hint: 'Email',
                                   icon: Icons.email_outlined,
-                                  obscureText: false
+                                  obscureText: false,
+                                validator: (value) {
+                                    if(value == null || value.isEmpty){
+                                      return 'Email required';
+                                    }
+                                    if(!RegExp(r'^[a-zA-Z0-9._%+-]+@gmail\.com$')
+                                        .hasMatch(value)){
+                                      return 'Enter a valid Gmail address';
+                                    }
+                                    return null;
+                                },
                               ),
                               const SizedBox(height: 13),
 
                               Obx(() => Roundedfield(
-                                controller: controller.passwordController,
+                                controller: controller.passwordsController,
                                 hint: 'Password',
                                 icon: Icons.looks_outlined,
                                 obscureText: controller.obscurePassword.value,
-                                suffixIcon: IconButton(
-                                    onPressed: () {
-                                      controller.obscurePassword.value = !controller
-                                          .obscurePassword.value;
-                                    },
-                                    icon: Icon(
-                                      controller.obscurePassword.value
-                                          ? Icons.visibility_off_outlined
-                                          : Icons.visibility_outlined,
-                                      color: Colors.grey,
-                                    )
-                                ),
-                              ),
-                              ),
+                                validator: (value) {
+                                  if(value == null || value.isEmpty){
+                                    return 'Password required';
+                                  }
 
-                              const SizedBox(height: 13),
+                                  if(value.length < 6){
+                                    return 'Password must be at least 6 characters';
+                                  }
 
-                              Obx(() => Roundedfield(
-                                controller: controller.passwordController,
-                                hint: 'Current Password',
-                                icon: Icons.looks_outlined,
-                                obscureText: controller.obscurePassword.value,
+                                  return null;
+                                },
                                 suffixIcon: IconButton(
                                     onPressed: () {
                                       controller.obscurePassword.value = !controller
@@ -111,30 +128,19 @@ class RegistrationPage extends GetView<Authcontroller>{
                               ),
                               const SizedBox(height: 18),
 
-                              SizedBox(
-                                height: 40,
-                                width: double.infinity,
-                                child: ElevatedButton(
-                                    onPressed: () {
-
-                                },style: ElevatedButton.styleFrom(
-                                  backgroundColor: const Color(0xFF1B2A56),
-                                  foregroundColor: Colors.white,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(28),
-                                  ),
-                                  elevation: 0,
-                                ), child: Text(
-                                  'Sign up',
-                                  style: TextStyle(
-                                      color: Color(0xFFE0F4FF),
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.w600
-                                  ),
-                                )),
+                              SignInButton(
+                                  buttonName:'Sign up',
+                                  isLoading: controller.isLoading.value,
+                                  onPressed: () {
+                                    if(_formKey.currentState!.validate()){
+                                      controller.register();
+                                    }
+                                    print('Sign up button');
+                                  },
+                                backgroundColor:const Color(0xFF288AAA),
                               ),
-                              const SizedBox(height: 20),
 
+                              const SizedBox(height: 20),
 
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
@@ -149,7 +155,7 @@ class RegistrationPage extends GetView<Authcontroller>{
 
                                   GestureDetector(
                                     onTap: () {
-                                      Get.to(() => const RegistrationPage());
+                                      Get.to(() => LoginPage());
                                       print('Do you have an account?');
                                     },
 
@@ -167,10 +173,11 @@ class RegistrationPage extends GetView<Authcontroller>{
                               ),
 
                             ],
-                          )
-                      ),
-                    ],
+                          ),
+                        ],
 
+                      ),
+                    ),
                   ),
                 ),
               )

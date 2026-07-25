@@ -7,6 +7,7 @@ class Roundedfield extends StatelessWidget {
   final IconData icon;
   final bool obscureText;
   final Widget? suffixIcon;
+  final String? Function(String?)? validator;
 
   const Roundedfield({
     super.key,
@@ -14,40 +15,41 @@ class Roundedfield extends StatelessWidget {
     required this.hint,
     required this.icon,
     required this.obscureText,
-    this.suffixIcon
+    this.suffixIcon,
+    this.validator,
   });
 
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 48,
-      child: TextField(
-        controller: controller,
-        obscureText: obscureText,
-        style: const TextStyle(
+    return TextFormField(
+      controller: controller,
+      obscureText: obscureText,
+      validator: validator,
+
+      style: const TextStyle(
+        fontSize: 14,
+      ),
+      decoration: InputDecoration(
+        hintStyle: const TextStyle(
           fontSize: 14,
         ),
-        decoration: InputDecoration(
-          hintStyle: const TextStyle(
-            fontSize: 14,
-          ),
-          isDense: true,
-          hintText: hint,
-          prefixIcon: Icon(icon, color: Colors.grey),
-          suffixIcon: suffixIcon,
-          filled: true,
-          fillColor: const Color(0xFFF2F3F7),
-          contentPadding: const EdgeInsets.symmetric(
-          vertical: 8,
-          horizontal: 12,
-        ),
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(28),
-            borderSide: BorderSide.none,
-          ),
-        )
+        isDense: true,
+        errorMaxLines: 1,
+        hintText: hint,
+        prefixIcon: Icon(icon, color: Colors.grey),
+        suffixIcon: suffixIcon,
+        filled: true,
+        fillColor: const Color(0xFFF2F3F7),
+        contentPadding: const EdgeInsets.symmetric(
+        vertical: 8,
+        horizontal: 12,
       ),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(28),
+          borderSide: BorderSide.none,
+        ),
+      )
     );
   }
 }
