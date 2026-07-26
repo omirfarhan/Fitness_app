@@ -97,20 +97,18 @@ class LoginPage extends GetView<Authcontroller> {
                           ),
                             const SizedBox(height: 13),
                         
-                            SignInButton(
-                              buttonName:'Sign in',
-                              isLoading: controller.isLoading.value,
-                              onPressed: () {
-                                // if(_formKey.currentState!.validate()){
-                                //   print('Sign in button');
-                                // }
+                            Obx( () => SignInButton(
+                                buttonName:'Sign in',
+                                isLoading: controller.isLoading.value,
+                                onPressed: () {
 
-                                if(_formKey.currentState!.validate()){
-                                  //controller.login();
-                                }
-                        
-                              },
-                              backgroundColor: const Color(0xFF1B2A56)
+                                  if(_formKey.currentState!.validate()){
+                                    controller.login();
+                                  }
+
+                                },
+                                backgroundColor: const Color(0xFF1B2A56)
+                              ),
                             ),
                         
                             const SizedBox(height: 14),

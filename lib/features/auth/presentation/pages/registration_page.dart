@@ -156,7 +156,7 @@ class RegistrationPage extends GetView<Authcontroller>{
 
                                   GestureDetector(
                                     onTap: () {
-                                      Get.to(() => LoginPage());
+                                      Get.back();
                                       print('Do you have an account?');
                                     },
 

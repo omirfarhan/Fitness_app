@@ -1,5 +1,6 @@
 import 'package:cleancodearchitecture/core/error/exception.dart';
-import 'package:dio/dio.dart';
+import 'package:cleancodearchitecture/core/routes/app_routes.dart';
+import 'package:cleancodearchitecture/features/auth/data/model/login_request.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
@@ -32,6 +33,56 @@ class  Authcontroller extends GetxController {
     super.onClose();
   } //final confirmPasswordsController = TextEditingController();
 
+
+  Future<void> login()async{
+    try{
+      isLoading.value = true;
+      errormessage.value= '';
+
+      final response= LoginRequest(
+          email: emailController.text.trim(),
+          password: passwordController.text
+      );
+
+      final datasource = Authremotedatasource(ApiClient());
+      await datasource.login(response);
+
+      Get.snackbar(
+        'Success',
+        'Welcome back! User logged in successfully',
+        duration: Duration(seconds: 3),
+      );
+
+      Get.offAllNamed(AppRoutes.homescreen);
+
+    } on ForbiddenException catch (e){
+      _handleForbiddenException(e.message);
+
+    } on UserNotFoundException catch (e) {
+      _handleUserNotFoundException(e.message);
+
+    } on InvalidCredentialsException catch (e) {
+      _handleInvalidCredentialsException(e.message);
+
+    } on BadRequestException catch (e){
+      _handleBadRequest(e.message);
+
+    } on ServerException catch (e){
+      _handleServerError(e.message);
+
+    } on NetworkException catch (e){
+      _handleNetworkError(e.message);
+
+    } on GenericException catch (e){
+      _handleUnknownError(e.message);
+
+    } catch (e){
+      errormessage.value = e.toString();
+      Get.snackbar('Error', errormessage.value);
+    }finally {
+      isLoading.value = false;
+    }
+  }
 
   Future<void> register()async{
     try{
@@ -77,6 +128,39 @@ class  Authcontroller extends GetxController {
     }finally {
       isLoading.value = false;
     }
+
+  }
+
+  void _handleInvalidCredentialsException(String message) {
+    errormessage.value = message;
+    print('InvalidCredentialsException');
+    Get.snackbar(
+      'InvalidCredentialsException',
+      message,
+      duration: Duration(seconds: 5),
+    );
+
+  }
+
+  void _handleUserNotFoundException(String message) {
+    errormessage.value = message;
+    print('UserNotFoundException');
+    Get.snackbar(
+      'UserNotFoundException',
+      message,
+      duration: Duration(seconds: 5),
+    );
+
+  }
+
+  void _handleForbiddenException(String message) {
+    errormessage.value = message;
+    print('ForbiddenException');
+    Get.snackbar(
+      'ForbiddenException',
+      message,
+      duration: Duration(seconds: 5),
+    );
 
   }
 
