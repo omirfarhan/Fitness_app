@@ -16,29 +16,33 @@ class SignInButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 50,
-      child: ElevatedButton(
-        onPressed: onPressed ?? (){
-          print('button pressed');
-        },
-        style: ElevatedButton.styleFrom(
-          backgroundColor: backgroundColor,
-          foregroundColor: Colors.white,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(28),
-          ),
-          elevation: 0,
+    return ElevatedButton(
+      onPressed: onPressed ?? (){
+        print('button pressed');
+      },
+      style: ElevatedButton.styleFrom(
+        backgroundColor: backgroundColor,
+        foregroundColor: Colors.white,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(28),
         ),
-        child:isLoading
-            ?CircularProgressIndicator()
-            : Text(
-          buttonName,
-          style: TextStyle(
-              color: Color(0xFFE0F4FF),
-              fontSize: 18,
-              fontWeight: FontWeight.w600
-          ),
+        elevation: 0,
+      ),
+      child: isLoading
+          ? const SizedBox(
+        height: 20,
+        width: 20,
+        child: CircularProgressIndicator(
+          color: Colors.white,
+          strokeWidth: 2.5,
+        ),
+      )
+          : Text(
+        buttonName,
+        style: TextStyle(
+            color: Color(0xFFE0F4FF),
+            fontSize: 18,
+            fontWeight: FontWeight.w600
         ),
       ),
     );

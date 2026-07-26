@@ -128,16 +128,17 @@ class RegistrationPage extends GetView<Authcontroller>{
                               ),
                               const SizedBox(height: 18),
 
-                              SignInButton(
-                                  buttonName:'Sign up',
-                                  isLoading: controller.isLoading.value,
-                                  onPressed: () {
-                                    if(_formKey.currentState!.validate()){
-                                      controller.register();
-                                    }
-                                    print('Sign up button');
-                                  },
-                                backgroundColor:const Color(0xFF288AAA),
+                              Obx(() => SignInButton(
+                                    buttonName:'Sign up',
+                                    isLoading: controller.isLoading.value,
+                                    onPressed: () {
+                                      if(_formKey.currentState!.validate()){
+                                        controller.register();
+                                      }
+                                      print('Sign up button');
+                                    },
+                                  backgroundColor:const Color(0xFF288AAA),
+                                ),
                               ),
 
                               const SizedBox(height: 20),

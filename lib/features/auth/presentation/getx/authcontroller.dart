@@ -48,9 +48,12 @@ class  Authcontroller extends GetxController {
       final datasource = Authremotedatasource(ApiClient());
       await datasource.register(response);
 
-      //ekhane usecase add kora
-      //print('register response: ${response.}')
-      _handleRegistrationSuccess;
+      Get.snackbar(
+        'Success',
+        'Registration successful! Please login.',
+        duration: Duration(seconds: 3),
+      );
+
 
     } on DuplicateEmailException catch (e){
 
@@ -70,20 +73,11 @@ class  Authcontroller extends GetxController {
 
     } catch (e){
       errormessage.value = e.toString();
-      //if(errormessage.value == )
       Get.snackbar('Error', errormessage.value);
     }finally {
       isLoading.value = false;
     }
 
-  }
-
-  void _handleRegistrationSuccess() {
-    Get.snackbar(
-      '🎉 Success',
-      'Registration successful! Please login.',
-      duration: Duration(seconds: 3),
-    );
   }
 
   void _handleDuplicateEmail(String message) {
