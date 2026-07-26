@@ -6,13 +6,20 @@ class Authremotedatasource {
   final ApiClient api;
   Authremotedatasource(this.api);
 
-  Future<void> register(RegisterRequest request)async{
+  Future<dynamic> register(RegisterRequest request)async{
 
-    await api.dio.post(
-      Apiendpoints.register,
-      data: request.toJson()
-    );
-
+    try{
+      final response =await api.dio.post(
+          Apiendpoints.register,
+          data: request.toJson()
+      );
+      // print('register response: ${response.data}');
+      // print('register response: ${response.statusCode}');
+      return response.data;
+    }catch (e){
+      print('Unexpected error $e');
+      rethrow;
+    }
   }
 
 }
