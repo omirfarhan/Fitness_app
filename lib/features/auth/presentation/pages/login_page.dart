@@ -8,10 +8,11 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-final _formKey = GlobalKey<FormState>();
 
 class LoginPage extends GetView<Authcontroller> {
-  const LoginPage({super.key});
+  LoginPage({super.key});
+
+  final _formKey = GlobalKey<FormState>();
 
 
   @override

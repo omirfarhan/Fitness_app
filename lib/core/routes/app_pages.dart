@@ -10,7 +10,7 @@ class AppPages {
   static final pages = <GetPage>[
     GetPage(
         name: AppRoutes.login,
-        page: () =>const LoginPage(),
+        page: () => LoginPage(),
         binding: AuthBinding()
     ),
 

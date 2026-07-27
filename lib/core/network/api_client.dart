@@ -1,5 +1,7 @@
 import 'package:dio/dio.dart';
 
+import 'api_interceptors.dart';
+
 class ApiClient {
   final Dio dio;
 
@@ -14,7 +16,8 @@ class ApiClient {
       ),
   ){
     //eta te hocche api theke asa accessToken ar refresh Token esob handle kora
-   // dio.interceptors.add();
+    dio.interceptors.add(ApiInterceptors());
+
 
   }
 

@@ -23,8 +23,7 @@ class MyApp extends StatelessWidget {
      initialBinding: AuthBinding(),
      initialRoute: AppRoutes.login,
      getPages: AppPages.pages,
-     home: const LoginPage(),
-
+     //home: const LoginPage(),
      // home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
