@@ -8,6 +8,7 @@ import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import '../../../../core/network/api_client.dart';
 import '../../data/datasources/AuthRemoteDataSource.dart';
 import '../../data/model/registerrequest.dart';
+import 'auth_service.dart';
 
 class  Authcontroller extends GetxController {
   final isLoading = false.obs;
@@ -46,6 +47,10 @@ class  Authcontroller extends GetxController {
 
       final datasource = Authremotedatasource(ApiClient());
       await datasource.login(response);
+
+      // ✅ এই লাইনটা যোগ করুন
+      final authService = Get.find<AuthService>();
+      await authService.box.write('isLoggedIn', true);
 
       Get.snackbar(
         'Success',
